@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -42,8 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,9 +66,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -276,9 +273,9 @@ RectTransform:
   - {fileID: 1094214373}
   m_Father: {fileID: 2075834432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -600, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: 0}
   m_SizeDelta: {x: 600, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &120205773
@@ -1243,7 +1240,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -1251,6 +1247,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &616047445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,12 +1939,41 @@ MonoBehaviour:
   sceneLoadBlack: {fileID: 689660486}
   sceneLoadingText: {fileID: 312228280}
   brightnessImage: {fileID: 445938881}
-  prettyPrint: 1
-  m_fileCount: 99
-  saveMode: 0
+  m_itemDatas:
+  - {fileID: 11400000, guid: 9e550e84c48b59e49ae7699e6ec5aa5c, type: 2}
+  - {fileID: 11400000, guid: 8ff7dfa9962c3fc4f934ee0baa929d75, type: 2}
+  - {fileID: 11400000, guid: e9f1d1c1052de5c499d2b46093c0bce2, type: 2}
+  - {fileID: 11400000, guid: 751a45f39265fb244800d0fdc3a024c9, type: 2}
+  - {fileID: 11400000, guid: 004a6b639f642394889eb6384e080bbe, type: 2}
+  - {fileID: 11400000, guid: 3be15168303e55d4bb5c307487e59668, type: 2}
+  - {fileID: 11400000, guid: 9bc63dd950a5cea44aa96ea76a5934ff, type: 2}
+  - {fileID: 11400000, guid: badfdb00f9083864ea8df4d3d0d998a9, type: 2}
+  - {fileID: 11400000, guid: 4468e2273c10c104e904d581d9cbf44a, type: 2}
+  - {fileID: 11400000, guid: b28654ff83157504baa087b33d2a4cac, type: 2}
+  - {fileID: 11400000, guid: 94b54ea8007f2c645b9908bc4945603e, type: 2}
+  - {fileID: 11400000, guid: 592c3ed3f88964746a9b3016b70d6701, type: 2}
+  - {fileID: 11400000, guid: 369be85447225124d9ed2f5b8a0772e8, type: 2}
+  - {fileID: 11400000, guid: 8e13e1ba172210346a4510cc7aab7119, type: 2}
+  - {fileID: 11400000, guid: c7f471b2b40e467468a558801269b6b0, type: 2}
+  m_cutscenes:
+  - {fileID: 11400000, guid: f8a83db0da2e6434d9844131725c393c, type: 2}
+  - {fileID: 11400000, guid: 847458e837065f14d9fc7a12ea2576e4, type: 2}
+  - {fileID: 11400000, guid: 91d0e314677059e479406c05f1043922, type: 2}
+  - {fileID: 11400000, guid: 8d7562c6e66278544bbeb33f0a3f8a8e, type: 2}
+  - {fileID: 11400000, guid: a857374033052394983a41f72c1df3eb, type: 2}
+  - {fileID: 11400000, guid: b44ac18225c430f48a53515ac6f02977, type: 2}
+  - {fileID: 11400000, guid: 9e1ddc9ffe3e221489812e62ec94fdf3, type: 2}
+  - {fileID: 11400000, guid: 0d682d9214ae2564babf1dff98097c08, type: 2}
+  m_enemyPrefabs:
+  - {fileID: 2070235412365905958, guid: 710e4798de4651e458b93cba5522054f, type: 3}
+  - {fileID: 2070235412365905958, guid: 17bde65a3f88a5a4cba6704eea194db1, type: 3}
+  prettyPrint: 0
+  m_fileCount: 3
+  m_saveMode: 0
   fileExtension: .json
-  saveFileName: Saves
-  baseURL: survivalgameserver.azurewebsites.net/SurvivalGame
+  saveRoute: Saves
+  gameID: DadsLetter
+  baseURL: https://gfuploader-production.up.railway.app/uploader
 --- !u!4 &1092724820
 Transform:
   m_ObjectHideFlags: 0
@@ -2140,7 +2166,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 606456d55faf2fa40b5a8afbc0c51967, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 606456d55faf2fa40b5a8afbc0c51967, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3653,9 +3680,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2075834432}
     m_Modifications:
+    - target: {fileID: 142900117867182659, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 1087260847639252847, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
       propertyPath: m_Name
       value: Files
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087260847639252847, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890298853386323758, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890298853386323758, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3603244098346782586, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3603244098346782586, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3603244098346782586, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593630377016261758, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -676031422766797811, guid: f823ecd0db3657d4f8d337d33cfe2f73, type: 2}
+    - target: {fileID: 4593630377016261758, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530235404067091811, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -299.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910172380136363154, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 7144274975572795941, guid: 5aa6e00f5ec527a4092d2cb3398e1de9, type: 3}
       propertyPath: m_Pivot.x

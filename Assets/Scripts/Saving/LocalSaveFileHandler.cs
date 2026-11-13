@@ -15,6 +15,7 @@ public class LocalSaveFileHandler : SaveFileHandler
     public override void Save(string data, string fileName, Action onSave = null)
     {
         string path = Path.Combine(savePath, fileName + fileExtension);
+        Debug.Log(path);
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));

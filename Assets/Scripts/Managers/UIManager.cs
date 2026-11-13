@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour, ICutsceneTriggerReceiver
         volumeSlider.onValueChanged.AddListener((float value) => { Settings.masterVolume = value; });
         brightnessSlider.onValueChanged.AddListener((float value) => { Settings.brightness = value; });
         AudioManager.Instance.onMusicChange += OnMusicChange;
-        saveFiles.InstantiateButtons();
+        saveFiles.Initialize();
     }
     private void Start()
     {

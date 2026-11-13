@@ -56,16 +56,17 @@ public class TimelineCutsceneManager : MonoBehaviour, ISavable
     {
         if (m_inCutscene)
         {
-            data.cutscene = director.playableAsset;
+            data.cutscene = director.playableAsset.name;
             data.cutsceneProgress = (float)director.time;
         }
     }
 
     public void Load(SaveData data)
     {
-        if(data.cutscene != null)
+        PlayableAsset tmp = GlobalManager.Instance.cutscenes.Find(item => item.name == data.cutscene);
+        if (tmp != null)
         {
-            director.playableAsset = data.cutscene;
+            director.playableAsset = tmp;
             director.time = data.cutsceneProgress;
             director.Play();
         }

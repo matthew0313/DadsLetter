@@ -334,7 +334,10 @@ public class Player : MonoBehaviour, ISavable, ICutsceneTriggerReceiver
         data.player.inventoryData = inventory.Save();
         data.player.hpData = hp.Save();
         data.player.position = transform.position;
-        foreach (var i in consumableCooldowns) data.player.consumableCooldowns.Add(i.Key, i.Value);
+        foreach (var i in consumableCooldowns)
+        {
+            data.player.consumableCooldowns.Add(i.Key.name, i.Value);
+        }
     }
 
     public void Load(SaveData data)
@@ -346,7 +349,12 @@ public class Player : MonoBehaviour, ISavable, ICutsceneTriggerReceiver
         inventory.Load(data.player.inventoryData);
         hp.Load(data.player.hpData);
         transform.position = data.player.position;
-        foreach (var i in data.player.consumableCooldowns) consumableCooldowns.Add(i.Key, i.Value);
+        foreach (var i in data.player.consumableCooldowns)
+        {
+            ConsumableData tmp = GlobalManager.Instance.itemDatas.Find(item => item.name == i.Key) as ConsumableData;
+            if (tmp == null) continue;
+            consumableCooldowns.Add(tmp, i.Value);
+        }
     }
 }
 [System.Serializable]
@@ -355,6 +363,6 @@ public class PlayerSaveData
     public InventorySaveData inventoryData = new();
     public HpCompSaveData hpData = new();
     public InventorySlotSaveData[] equipmentData = new InventorySlotSaveData[4];
-    public SerializableDictionary<ConsumableData, float> consumableCooldowns = new();
+    public SerializableDictionary<string, float> consumableCooldowns = new();
     public Vector2 position;
 }

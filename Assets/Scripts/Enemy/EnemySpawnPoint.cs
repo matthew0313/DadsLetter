@@ -71,11 +71,15 @@ public class EnemySpawnPoint : MonoBehaviour, ISavable
         {
             foreach(var i in tmp.enemies)
             {
-                Enemy spawned = i.prefab.Instantiate();
-                this.spawned.Add(spawned);
-                spawned.onDeath += () => this.spawned.Remove(spawned);
-                spawned.Load(i.data);
-                spawned.SetOrigin(this);
+                Enemy prefab = GlobalManager.Instance.enemyPrefabs.Find(item => item.name == i.prefabOrigin);
+                if(prefab != null)
+                {
+                    Enemy spawned = prefab.Instantiate();
+                    this.spawned.Add(spawned);
+                    spawned.onDeath += () => this.spawned.Remove(spawned);
+                    spawned.Load(i.data);
+                    spawned.SetOrigin(this);
+                }
             }
             counter = tmp.counter;
         }
@@ -87,7 +91,7 @@ public class EnemySpawnPoint : MonoBehaviour, ISavable
         foreach(var i in spawned)
         {
             EnemySaveData tmp2 = new();
-            tmp2.prefab = i.prefabOrigin;
+            tmp2.prefabOrigin = i.prefabOrigin.name;
             tmp2.data = i.Save();
             tmp.enemies.Add(tmp2);
         }

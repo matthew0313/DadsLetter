@@ -439,6 +439,6 @@ public class Enemy : MonoBehaviour, ISavable, ICutsceneTriggerReceiver
 [System.Serializable]
 public class EnemySaveData
 {
-    public Enemy prefab;
+    public string prefabOrigin;
     public DataUnit data = new();
 }

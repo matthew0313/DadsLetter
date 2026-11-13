@@ -62,17 +62,17 @@ public class DroppedItem : MonoBehaviour
         this.count = count;
         itemImage.transform.localScale = new Vector2(targetSize.x / item.data.image.bounds.size.x, targetSize.y / item.data.image.bounds.size.y);
     }
-    public bool canPick => rb.velocity.magnitude < 0.5f;
+    public bool canPick => rb.linearVelocity.magnitude < 0.5f;
     public void SetVelocity(Vector2 velocity)
     {
-        rb.velocity = velocity;
+        rb.linearVelocity = velocity;
     }
     public static DroppedItem Create(Vector2 position) => pool.GetObject(position, Quaternion.identity);
     public DroppedItemSaveData Save()
     {
         DroppedItemSaveData tmp = new();
         tmp.position = transform.position;
-        tmp.velocity = rb.velocity;
+        tmp.velocity = rb.linearVelocity;
         tmp.item = item.data;
         item.Save(tmp.data);
         tmp.count = count;
@@ -80,7 +80,7 @@ public class DroppedItem : MonoBehaviour
     }
     public void Load(DroppedItemSaveData data)
     {
-        rb.velocity = data.velocity;
+        rb.linearVelocity = data.velocity;
         Item tmp = data.item.Create();
         tmp.Load(data.data);
         Set(tmp, data.count);

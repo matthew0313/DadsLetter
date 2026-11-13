@@ -17,7 +17,7 @@ public class SaveData
     public SerializableDictionary<string, EnemySpawnSaveData> spawnPoints = new();
     public SerializableDictionary<string, DataUnit> fieldEnemies = new();
 
-    public PlayableAsset cutscene;
+    public string cutscene;
     public float cutsceneProgress = 0.0f;
     public Vector2 cameraPos;
 }

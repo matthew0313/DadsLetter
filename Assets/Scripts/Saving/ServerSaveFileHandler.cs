@@ -7,63 +7,71 @@ using System;
 using UnityEngine.Networking;
 using System.Reflection;
 using UnityEngine.EventSystems;
+using System.IO;
 
 public class ServerSaveFileHandler : SaveFileHandler
 {
-    readonly string baseUrl;
+    public string username;
+    readonly string gameID, baseUrl;
     readonly MonoBehaviour coroutinePlayer;
-    public ServerSaveFileHandler(string baseUrl, MonoBehaviour coroutinePlayer)
+    public ServerSaveFileHandler(string gameID, string baseUrl, MonoBehaviour coroutinePlayer)
     {
+        this.gameID = gameID;
         this.baseUrl = baseUrl;
         this.coroutinePlayer = coroutinePlayer;
     }
     public override void Load(string fileName, Action<string> onLoad = null)
     {
-        coroutinePlayer.StartCoroutine(LoadDataFromServer(fileName, (data) => onLoad?.Invoke(data)));
+        coroutinePlayer.StartCoroutine(LoadDataFromServer(fileName, onLoad));
     }
     public override void Save(string data, string fileName, Action onSave = null)
     {
-        coroutinePlayer.StartCoroutine(SaveDataToServer(fileName, data, () => onSave?.Invoke()));
+        coroutinePlayer.StartCoroutine(SaveDataToServer(fileName, data, onSave));
     }
     public override void Delete(string fileName, Action onDelete = null)
     {
-        throw new NotImplementedException();
+        coroutinePlayer.StartCoroutine(DeleteDataFromServer(fileName, onDelete));
     }
 
     private IEnumerator LoadDataFromServer(string fileName, Action<string> onLoad)
     {
-        var requestData = new { uid = SystemInfo.deviceUniqueIdentifier + "/" + fileName };
-
-        string jsonData = JsonUtility.ToJson(requestData);
-
-        UnityWebRequest request = new UnityWebRequest(baseUrl + "/LoadMap", "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        UnityWebRequest request = new UnityWebRequest($"{baseUrl}/{username}/{gameID}/{fileName}", "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Content-Type", "application/json; indent=4");
 
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            string result = request.downloadHandler.text;
-            if (result[0] == '[') result = null;
-            Debug.Log(result);
-            onLoad?.Invoke(result);
+            if(request.downloadHandler.text != string.Empty)
+            {
+                SaveFile file = new();
+                try
+                {
+                    file = JsonUtility.FromJson<SaveFile>(request.downloadHandler.text);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError(e);
+                }
+                onLoad?.Invoke(file.saveData);
+                yield break;
+            }
         }
-        else
-        {
-            Debug.LogError("Error fetching movies" + request.downloadHandler.text);
-        }
+        else Debug.LogError("Error fetching movies" + request.downloadHandler.text);
+        onLoad?.Invoke(null);
     }
     public IEnumerator SaveDataToServer(string fileName, string content, Action onSave)
     {
-        var requestData = new { uid = SystemInfo.deviceUniqueIdentifier + "/" + fileName, mapData = content };
-
-        string jsonData = JsonUtility.ToJson(requestData, false); 
-
-        UnityWebRequest request = new UnityWebRequest(baseUrl + "/GetMap", "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        UnityWebRequest request = new UnityWebRequest($"{baseUrl}/", "POST");
+        SaveFile file = new()
+        {
+            username = username,
+            gameID = gameID,
+            fileName = fileName,
+            saveData = content
+        };
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(file));
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -78,5 +86,35 @@ public class ServerSaveFileHandler : SaveFileHandler
         {
             Debug.LogError("Error fetching movies");
         }
+    }
+    private IEnumerator DeleteDataFromServer(string fileName, Action onDelete)
+    {
+        UnityWebRequest request = new UnityWebRequest($"{baseUrl}/{username}/{gameID}/{fileName}", "DELETE");
+        SaveFile file = new()
+        {
+            username = username,
+            gameID = gameID,
+            fileName = fileName,
+        };
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(JsonUtility.ToJson(file));
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            onDelete?.Invoke();
+        }
+        else
+        {
+            Debug.LogError("Error fetching movies");
+        }
+    }
+    [System.Serializable]
+    public struct SaveFile
+    {
+        public string username, gameID, fileName, saveData;
     }
 }

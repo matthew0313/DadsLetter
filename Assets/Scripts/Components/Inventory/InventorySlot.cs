@@ -83,7 +83,7 @@ public class InventorySlot
         InventorySlotSaveData data = new();
         if (item != null)
         {
-            data.item = item.data;
+            data.itemName = item.data.name;
             item.Save(data.data);
         }
         data.count = count;
@@ -91,9 +91,11 @@ public class InventorySlot
     }
     public void Load(InventorySlotSaveData data)
     {
-        if(data.item != null)
+        if (data == null) return;
+        ItemData itemData = GlobalManager.Instance.itemDatas.Find(item => item.name == data.itemName);
+        if(itemData != null)
         {
-            ForcedSetItem(data.item.Create());
+            ForcedSetItem(itemData.Create());
             item.Load(data.data);
         }
         count = data.count;
@@ -102,7 +104,7 @@ public class InventorySlot
 [System.Serializable]
 public class InventorySlotSaveData
 {
-    public ItemData item;
+    public string itemName = null;
     public DataUnit data = new();
     public int count;
 }

@@ -18,6 +18,23 @@ public class SaveFileUI : MonoBehaviour
         loadButton.gameObject.SetActive(false);
         GlobalManager.Instance.GetSaveData(fileName, SetDisplay);
     }
+    private void OnEnable()
+    {
+        GlobalManager.Instance.onHandlerChange += Refresh;
+        GlobalManager.Instance.onServerUsernameChange += Refresh;
+    }
+    private void OnDisable()
+    {
+        GlobalManager.Instance.onHandlerChange -= Refresh;
+        GlobalManager.Instance.onServerUsernameChange -= Refresh;
+    }
+    void Refresh()
+    {
+        fileDescText.text = "로딩중...";
+        saveButton.gameObject.SetActive(false);
+        loadButton.gameObject.SetActive(false);
+        GlobalManager.Instance.GetSaveData(fileName, SetDisplay);
+    }
     void SetDisplay(SaveData data)
     {
         if (!GameManager.isInGame) saveButton.gameObject.SetActive(false);

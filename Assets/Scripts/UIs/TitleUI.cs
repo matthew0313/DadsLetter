@@ -39,7 +39,7 @@ public class TitleUI : MonoBehaviour
             titleMusic.Play();
             AfterIntro();
         }
-        saveFiles.InstantiateButtons();
+        saveFiles.Initialize();
         Settings.onMasterVolumeChange += OnMasterVolumeChange;
         Settings.onBrightnessChange += OnBrightnessChange;
         OnMasterVolumeChange(); OnBrightnessChange();

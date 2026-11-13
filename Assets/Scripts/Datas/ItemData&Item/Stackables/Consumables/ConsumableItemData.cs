@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEngine.UI.Image;
 
 [CreateAssetMenu(fileName = "Consumable Data", menuName = "Scriptables/Items/Stackables/Consumable", order = 2)]
 public class ConsumableData : StackableItemData

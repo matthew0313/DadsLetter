@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
             slotCount = data.slotSaves.Count;
             slotCount = tmp;
         }
-        for (int i = 0; i < slotCount; i++)
+        for (int i = 0; i < Mathf.Min(slotCount, data.slotSaves.Count); i++)
         {
             slots[i].Load(data.slotSaves[i]);
         }
